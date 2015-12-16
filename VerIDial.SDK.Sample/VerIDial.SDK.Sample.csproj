@@ -100,8 +100,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="VerIDial.SDK, Version=3.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VerIDial.SDK.3.2.0.1\lib\net40\VerIDial.SDK.dll</HintPath>
+    <Reference Include="VerIDial.SDK, Version=3.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VerIDial.SDK.3.2.0.3\lib\net40\VerIDial.SDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -129,6 +129,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="VerIDial.SDK.LICENCE.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -184,8 +185,4 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="nuget pack VerIDial.SDK.Samples.csproj -Prop Configuration=Release">
-    </Exec>
-  </Target>
 </Project>
