@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VerIDial.SDK.Sample.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="InstallationId" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">9999</Value>
+    </Setting>
+    <Setting Name="ApiKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XXXXXXXXX</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

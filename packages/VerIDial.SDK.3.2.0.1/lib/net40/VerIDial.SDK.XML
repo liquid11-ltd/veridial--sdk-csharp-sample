@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VerIDial.SDK</name>
+    </assembly>
+    <members>
+        <member name="T:VerIDial.SDK.ApiException">
+            <summary>
+            Thrown when the VerIDial API returns a HTTP 400 Bad Request on certain commands with details of 
+            why the request was rejected in the ApiStatus property. E.G. Handset not registered status 
+            for SDK command CREATE method APP.
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.ApiException.ApiStatus">
+            <summary>
+            Contains details of the error, the status code (enum) and an english description of the error.
+            </summary>
+        </member>
+        <member name="M:VerIDial.SDK.ApiException.#ctor">
+            <summary>
+            Base constructor that accepts no parameters
+            </summary>
+        </member>
+        <member name="M:VerIDial.SDK.ApiException.#ctor(System.String)">
+            <summary>
+            Constructor that accepts a single parameter, an error message
+            </summary>
+            <param name="message">a descriptive error message</param>
+        </member>
+        <member name="M:VerIDial.SDK.ApiException.#ctor(System.String,System.Exception)">
+            <summary>
+            A constructor that accepts a two parameters, an error message and the inner exception.
+            </summary>
+            <param name="message">a descriptive error message</param>
+            <param name="inner">the inner exception</param>
+        </member>
+        <member name="T:VerIDial.SDK.Api">
+            <summary>
+            This class provides a wrapper around the web requests in order to simplify intergration with the VerIDial 
+            two factor authentication solution. Create an instance of this class for each installation you wish to 
+            issue commands against (usually one).
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.Api.ApiUrl">
+            <summary>
+            The ApiUrl to target, don't change this unless testing beta code and instructed to by VerIDial development.
+            </summary>
+        </member>
+        <member name="M:VerIDial.SDK.Api.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates an API object with the installation id and api key.
+            </summary>
+            <param name="installationId">Your installation id</param>
+            <param name="apiKey">The api key for your installation</param>
+        </member>
+        <member name="M:VerIDial.SDK.Api.Create(VerIDial.SDK.RequestMethod,System.String)">
+            <summary>
+            Will initiate a request for the specific number and return a token to be used further.
+            </summary>
+            <param name="method">App, Voice or Sms.</param>
+            <param name="number">The number to send the PIN to</param>
+            <returns>A token to use with subsequent calls related to this request</returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.Status(System.Guid)">
+            <summary>
+            Will return the current status of a request.
+            </summary>
+            <param name="token">The token that identifies the request to obtain the status for</param>
+            <returns>The status of the request after the api call</returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.Verify(System.Guid,System.String)">
+            <summary>
+            Will attempt to verify a request by matching the pin sent by the system with the submitted pin
+            </summary>
+            <param name="token">The token that identifies the request to verify</param>
+            <param name="pin">the PIN number to match</param>
+            <returns>The status of the request after the api call</returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.Cancel(System.Guid)">
+            <summary>
+            Will attempt to cancel a request thats currently in progress
+            </summary>
+            <param name="token">The token that identifies the request to cancel</param>
+            <returns>The status of the request after the api call</returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.Balance">
+            <summary>
+            Will request the current credit balance for the installation
+            </summary>        
+            <returns>The amount of credits remaining (until the next billing day)</returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.GetResponse(System.String,System.Net.Http.HttpMethod,System.Boolean,System.String)">
+            <summary>
+            Make an api request and return the HttpWebResponse, this method POSTs the raw json data to the api with basic authentication
+            </summary>
+            <param name="apiMethod">the name of the api method to call</param>    
+            <param name="httpMethod">the HTTP method, POST or GET typically</param>
+            <param name="auth">true if the authentication header shoulod be sent</param>       
+            <param name="postdata">any post data to send</param>            
+            <returns></returns>
+        </member>
+        <member name="M:VerIDial.SDK.Api.DeseraliseObject``1(System.Net.HttpWebResponse)">
+            <summary>
+            Helper function to deserialise a json object
+            </summary>
+            <typeparam name="T">The type of the object to deserialise</typeparam>
+            <param name="response">the HttpWebREsponse containing the object to deserialise</param>
+            <returns>an instance of type T</returns>
+        </member>
+        <member name="T:VerIDial.SDK.RequestMethod">
+            <summary>
+            APP, SMS or Voice
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestMethod.APP">
+            <summary>
+            App notification (app must be installed)
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestMethod.SMS">
+            <summary>
+            Text message to mobile
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestMethod.VOICE">
+            <summary>
+            Voice call to mobile or landline
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.TokenRequest">
+            <summary>
+            Token Request
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.TokenResponse">
+            <summary>
+            Token Response
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.TokenResponse.Token">
+            <summary>
+            A globally unique reference corresponding to a single request
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.StatusResponse">
+            <summary>
+            The current status of the request
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.StatusResponse.StatusCode">
+            <summary>
+            The status code
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.StatusResponse.StatusDescription">
+            <summary>
+            The english description of the status code
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.BalanceResponse">
+            <summary>
+            Balance Response
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.BalanceResponse.Balance">
+            <summary>
+            The credit amount remaining
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.VerificationRequest">
+            <summary>
+            Verification Request (pin and token)
+            </summary>
+        </member>
+        <member name="P:VerIDial.SDK.VerificationRequest.Pin">
+            <summary>
+            The pin number to test
+            </summary>
+        </member>
+        <member name="T:VerIDial.SDK.RequestStatusCode">
+            <summary>
+            Possible status codes returned from the VerIDial API.
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.Unknown">
+            <summary>
+            Unknown Error
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.BadToken">
+            <summary>
+            Token was not recognised
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.BadNumber">
+            <summary>
+            Number was malformed or invalid
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.InsufficientCredit">
+            <summary>
+            Account has insufficant credit to perform request
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.TriggeredRateLimiter">
+            <summary>
+            Too many recent requests to this number, please wait
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.BadPin">
+            <summary>
+            The PIN was incorrrect but you may try again.
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.RequestRejected">
+            <summary>
+            The request has been rejected (incorrect PIN)
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.RequestVerified">
+            <summary>
+            The request was successful (correct PIN)
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.RequestCancelled">
+            <summary>
+            The request was cancelled
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.RequestExpired">
+            <summary>
+            The request expired
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.CallSetup">
+            <summary>
+            A voice request has been configured ready for use
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.CallDeclined">
+            <summary>
+            The voice request was declined by the recipient
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.QueuedForDial">
+            <summary>
+            The voice request is currently queued for dialing
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.CallFailed">
+            <summary>
+            The voice request failed, the call could not be completed.
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.Dialling">
+            <summary>
+            The voice request us currently dialling
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.Engaged">
+            <summary>
+            The voice request could not be completed, the line was engaged.
+            </summary>
+            <remarks>Permenent Status</remarks> 
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.NoAnswer">
+            <summary>
+            The voice request could not be completed, the line wasn't answered.
+            </summary>
+            <remarks>Permenent Status</remarks> 
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.PlayingInstruction">
+            <summary>
+            The voice request is currently playing instructions
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.PlayingPin">
+            <summary>
+            The voice request is currently playing the PIN
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.HungUp">
+            <summary>
+            The voice request has hung up the call
+            </summary>               
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.SmsSent">
+            <summary>
+            The sms request has been sent
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.SmsFailed">
+            <summary>
+            The sms request failed
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.NotMobile">
+            <summary>
+            The sms request cannot be sent as the number was not a mobile
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.NotificationSent">
+            <summary>
+            The app request has been sent
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.NotificationFailed">
+            <summary>
+            The app request failed
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.HandsetNotRegistered">
+            <summary>
+            The app request cannot be sent as the number was not registered with VerIDial
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.EmailSent">
+            <summary>
+            The email request has been sent
+            </summary>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.EmailFailed">
+            <summary>
+            The email request failed
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+        <member name="F:VerIDial.SDK.RequestStatusCode.BadEmail">
+            <summary>
+            The email request cannot be sent as the address was not valid
+            </summary>
+            <remarks>Permenent Status</remarks>
+        </member>
+    </members>
+</doc>

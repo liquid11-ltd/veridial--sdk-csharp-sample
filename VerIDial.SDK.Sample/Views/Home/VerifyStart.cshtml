@@ -1,0 +1,19 @@
+﻿@model  VerIDial.SDK.Sample.Models.VerifyModel
+@{
+    ViewBag.Title = "Make a Request and Verify";
+}
+<section>
+    @using (Html.BeginForm())
+    {
+    @Html.ValidationSummary(true)
+    <p class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "hidden" })
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Enter your number..." })
+    </p>
+    <p>Choose how you want to be verified...</p>
+    <input name="submit" type="submit" value="SMS" />
+    <input name="submit" type="submit" value="CALL" />
+    <input name="submit" type="submit" value="APP" />
+    }
+</section>
+
