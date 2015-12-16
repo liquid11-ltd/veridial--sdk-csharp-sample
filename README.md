@@ -1,4 +1,4 @@
-# veridial--sdk-sample-csharp
+# veridial-sdk-sample-csharp
 
 A visual studio project containing a small set of code examples using the VerIDial C# SDK from nuget.
 
