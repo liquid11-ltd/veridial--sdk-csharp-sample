@@ -1,8 +1,8 @@
 # veridial-sdk-sample-csharp
 
-A visual studio project containing a small set of code examples using the VerIDial C# SDK from nuget.
+A Visual Studio project containing a small set of code examples to demonstrate usage of the VerIDial C# SDK available from NuGet.
 
-Is a MVC project running under dot net 4.5.
-Requires the VerIDial.SDK nuget package.
+The solution consists of an ASP.NET MVC project built with .NET Framework >4.5. Requires the <a href="https://www.nuget.org/packages/VerIDial.SDK/">VerIDial.SDK nuget package</a>
 
-Both Samples and SDK are Licenced under the MIT License.
+Both Samples and SDK are Licensed under the MIT License.
+
